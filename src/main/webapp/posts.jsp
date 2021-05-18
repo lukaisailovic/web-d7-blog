@@ -6,7 +6,7 @@
 </head>
 <body>
     <div id="app" class="container">
-        <div v-if="post==null">
+        <div v-if="post==null && !creating">
             <div class="row justify-content-center mt-5">
                 <div class="col-md-6">
                     <h1>
@@ -46,12 +46,15 @@
             </div>
             <div class="row justify-content-center mt-5">
                 <div class="col-md-6">
-                    <a href="#" class="btn btn-primary">New post</a>
+                    <a href="#" class="btn btn-primary" @click.prevent="setCreating(true)">New post</a>
                 </div>
             </div>
         </div>
-        <div v-else>
+        <div v-if="post!==null && !creating">
             <jsp:include page="post.jsp"/>
+        </div>
+        <div v-if="creating">
+            <jsp:include page="new-post.jsp"/>
         </div>
     </div>
 </body>
@@ -64,6 +67,12 @@
         data: {
             posts: [],
             post: null,
+            creating: false,
+            createPostForm: {
+                author: "",
+                title: "",
+                content: ""
+            }
         },
         async mounted(){
             const response = await fetch(API_PATH + 'posts');
@@ -72,6 +81,28 @@
         methods:{
             setPost(post){
                 this.post = post;
+            },
+            setCreating(value){
+                this.creating = value;
+                this.createPostForm = {
+                    author: "",
+                    title: "",
+                    content: ""
+                }
+            },
+            async createPost(){
+                let response = await fetch(API_PATH + 'posts',{
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.createPostForm)
+                });
+                const content = await response.json();
+                this.setCreating(false);
+                response = await fetch(API_PATH + 'posts');
+                this.posts = await response.json();
             }
         }
     })

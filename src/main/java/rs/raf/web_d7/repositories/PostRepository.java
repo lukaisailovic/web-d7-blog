@@ -53,7 +53,7 @@ public class PostRepository extends MySqlAbstractRepository implements IPostRepo
             connection = this.newConnection();
 
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from posts");
+            resultSet = statement.executeQuery("select * from posts order by created_at desc");
             while (resultSet.next()) {
                 posts.add(getFromResultSet(resultSet));
             }
