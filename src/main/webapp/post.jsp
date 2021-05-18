@@ -12,6 +12,9 @@
 </div>
 <div class="row justify-content-center">
     <div class="col-md-6">
+        <strong>
+            {{new Date(post.createdAt).toLocaleDateString("en-US")}}
+        </strong>
         <p class="text-muted">
             {{post.author}}
         </p>

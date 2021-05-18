@@ -25,6 +25,11 @@
                                             {{post.title}}
                                         </p>
                                     </div>
+                                    <div class="col text-end">
+                                        <p>
+                                            {{new Date(post.createdAt).toLocaleDateString("en-US")}}
+                                        </p>
+                                    </div>
 
                                 </div>
                             </h5>
