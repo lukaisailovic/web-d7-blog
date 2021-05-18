@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/comments")
@@ -26,8 +27,14 @@ public class CommentResource {
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Comment create(@Valid Comment comment) {
-        return this.commentService.addComment(comment);
+    public Response create(@BeanParam Comment comment) {
+        if (comment == null || comment.getContent() == null || comment.getPostId() == null || comment.getAuthor() == null){
+            return Response.status(400,"All fields are required").build();
+        }
+        if (comment.getContent().equals("") || comment.getAuthor().equals("") ){
+            return Response.status(400,"All fields are required").build();
+        }
+        return Response.ok(this.commentService.addComment(comment)).build();
     }
 
     @GET
