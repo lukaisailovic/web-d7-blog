@@ -5,7 +5,6 @@ import rs.raf.web_d7.entities.Comment;
 import rs.raf.web_d7.services.CommentService;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -27,7 +26,7 @@ public class CommentResource {
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@BeanParam Comment comment) {
+    public Response create(Comment comment) {
         if (comment == null || comment.getContent() == null || comment.getPostId() == null || comment.getAuthor() == null){
             return Response.status(400,"All fields are required").build();
         }

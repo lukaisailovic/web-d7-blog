@@ -18,14 +18,6 @@ public class Post {
     @NotNull(message = "Content is required")
     @NotEmpty(message = "Content is required")
     private String content;
-
-
-    public Post(Integer id, String author, String title, String content) {
-        this.id = id;
-        this.author = author;
-        this.title = title;
-        this.content = content;
-    }
     public Post(){
 
     }
@@ -34,6 +26,14 @@ public class Post {
         this.title = title;
         this.content = content;
     }
+    public Post(Integer id, String author, String title, String content) {
+        this.id = id;
+        this.author = author;
+        this.title = title;
+        this.content = content;
+    }
+
+
 
     public Integer getId() {
         return id;

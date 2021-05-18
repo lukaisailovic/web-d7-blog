@@ -5,7 +5,6 @@ import rs.raf.web_d7.entities.Post;
 import rs.raf.web_d7.services.PostService;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -24,9 +23,9 @@ public class PostResource {
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@BeanParam Post post) {
+    public Response create(Post post) {
         if (post == null || post.getContent() == null || post.getTitle() == null || post.getAuthor() == null){
-            return Response.status(400,"All fields are required").build();
+            return Response.status(400,"All fields are required (1)").build();
 
         }
         if (post.getContent().equals("") || post.getAuthor().equals("") || post.getTitle().equals("")){
