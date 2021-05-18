@@ -1,5 +1,6 @@
 package rs.raf.web_d7.repositories;
 
+import rs.raf.web_d7.entities.Comment;
 import rs.raf.web_d7.entities.Post;
 import rs.raf.web_d7.repositories.interfaces.IPostRepository;
 
@@ -8,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepository extends MySqlAbstractRepository implements IPostRepository {
+
+    private Post getFromResultSet(ResultSet resultSet) throws SQLException {
+        return new Post(resultSet.getInt("id"),resultSet.getString("author"),resultSet.getString("title"), resultSet.getString("content"));
+    }
+
     public Post add(Post obj) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -49,7 +55,7 @@ public class PostRepository extends MySqlAbstractRepository implements IPostRepo
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select * from posts");
             while (resultSet.next()) {
-                posts.add(new Post(resultSet.getInt("id"), resultSet.getString("author"), resultSet.getString("title"), resultSet.getString("content")));
+                posts.add(getFromResultSet(resultSet));
             }
 
         } catch (Exception e) {
@@ -76,7 +82,7 @@ public class PostRepository extends MySqlAbstractRepository implements IPostRepo
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
-                post = new Post(resultSet.getInt("id"),resultSet.getString("author"),resultSet.getString("title"),resultSet.getString("content"));
+                post = getFromResultSet(resultSet);
             }
 
             resultSet.close();
