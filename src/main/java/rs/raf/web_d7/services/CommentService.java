@@ -20,6 +20,9 @@ public class CommentService {
     public Comment findComment(Integer id){
         return this.commentRepository.find(id);
     }
+    public List<Comment> findByPostId(Integer postId){
+        return this.commentRepository.findByPost(postId);
+    }
     public void deleteComment(Integer id){
         this.commentRepository.delete(id);
     }
