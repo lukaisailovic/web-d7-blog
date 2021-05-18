@@ -1,10 +1,11 @@
 create table posts
 (
-    id      int auto_increment
+    id         int auto_increment
         primary key,
-    author  varchar(255) not null,
-    title   varchar(255) not null,
-    content mediumtext   not null
+    author     varchar(255)                        not null,
+    title      varchar(255)                        not null,
+    content    mediumtext                          not null,
+    created_at timestamp default CURRENT_TIMESTAMP null
 );
 
 create table comments
