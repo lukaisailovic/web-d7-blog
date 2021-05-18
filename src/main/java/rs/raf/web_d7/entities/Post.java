@@ -29,7 +29,7 @@ public class Post {
     public Post(){
 
     }
-    public Post(@NotNull(message = "Author is required") @NotEmpty(message = "Author is required") String author, @NotNull(message = "Title is required") @NotEmpty(message = "Title is required") String title, @NotNull(message = "Content is required") @NotEmpty(message = "Content is required") String content) {
+    public Post(String author, String title,String content) {
         this.author = author;
         this.title = title;
         this.content = content;
@@ -67,13 +67,5 @@ public class Post {
         this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", author='" + author + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
+
 }

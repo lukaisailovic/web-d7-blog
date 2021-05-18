@@ -21,7 +21,7 @@ public class Comment {
 
     }
 
-    public Comment(Integer postId, @NotNull(message = "Author is required") @NotEmpty(message = "Author is required") String author, @NotNull(message = "Content is required") @NotEmpty(message = "Content is required") String content) {
+    public Comment(Integer postId,String author, String content) {
         this.postId = postId;
         this.author = author;
         this.content = content;
