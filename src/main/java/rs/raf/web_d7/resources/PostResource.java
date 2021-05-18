@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/posts")
@@ -23,8 +24,15 @@ public class PostResource {
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Post create(@Valid Post post) {
-        return this.postService.addPost(post);
+    public Response create(@BeanParam Post post) {
+        if (post == null || post.getContent() == null || post.getTitle() == null || post.getAuthor() == null){
+            return Response.status(400,"All fields are required").build();
+
+        }
+        if (post.getContent().equals("") || post.getAuthor().equals("") || post.getTitle().equals("")){
+            return Response.status(400,"All fields are required").build();
+        }
+        return Response.ok(this.postService.addPost(post)).build();
     }
 
     @GET
