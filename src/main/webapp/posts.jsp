@@ -68,9 +68,14 @@
             posts: [],
             post: null,
             creating: false,
+            currentPostComments: [],
             createPostForm: {
                 author: "",
                 title: "",
+                content: ""
+            },
+            createCommentForm: {
+                author: "",
                 content: ""
             }
         },
@@ -79,8 +84,12 @@
             this.posts = await response.json();
         },
         methods:{
-            setPost(post){
+            async setPost(post){
                 this.post = post;
+                if (post !== null){
+                    const response = await fetch(API_PATH + 'comments?postId='+post.id);
+                    this.currentPostComments = await response.json();
+                }
             },
             setCreating(value){
                 this.creating = value;
@@ -103,6 +112,27 @@
                 this.setCreating(false);
                 response = await fetch(API_PATH + 'posts');
                 this.posts = await response.json();
+            },
+            async createComment(){
+                let response = await fetch(API_PATH + 'comments',{
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        author: this.createCommentForm.author,
+                        content: this.createCommentForm.content,
+                        postId: this.post.id,
+                    })
+                });
+                const content = await response.json();
+                response = await fetch(API_PATH + 'comments?postId='+this.post.id);
+                this.currentPostComments = await response.json();
+                this.createCommentForm = {
+                    author: "",
+                    content: ""
+                };
             }
         }
     })

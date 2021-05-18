@@ -28,7 +28,14 @@
         <h4>
             Comments
         </h4>
-
+        <div v-for="comment in currentPostComments">
+            <h5>
+                {{comment.author}}
+            </h5>
+            <p>
+                {{comment.content}}
+            </p>
+        </div>
     </div>
 </div>
 <div class="row justify-content-center mt-5">
@@ -36,16 +43,16 @@
         <h4>
             New Comment
         </h4>
-        <form action="#" method="post">
+        <form action="#" @submit.prevent="createComment" method="post">
 
             <div class="form-group my-1">
                 <label for="author">Author:</label>
-                <input type="text" class="form-control" name="author" id="author">
+                <input type="text" class="form-control" name="author" id="author" v-model="createCommentForm.author">
             </div>
 
             <div class="form-group my-1">
                 <label for="content">Comment:</label>
-                <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
+                <textarea name="content" id="content" cols="30" rows="10" class="form-control" v-model="createCommentForm.content"></textarea>
             </div>
 
             <div class="form-group mt-3">

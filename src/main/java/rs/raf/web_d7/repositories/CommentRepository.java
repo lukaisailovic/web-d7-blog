@@ -54,7 +54,7 @@ public class CommentRepository extends MySqlAbstractRepository implements IComme
             connection = this.newConnection();
 
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from comments");
+            resultSet = statement.executeQuery("select * from comments order by created_at desc");
             while (resultSet.next()) {
                 comments.add(getFromResultSet(resultSet));
             }
@@ -79,7 +79,7 @@ public class CommentRepository extends MySqlAbstractRepository implements IComme
         try {
             connection = this.newConnection();
 
-            preparedStatement = connection.prepareStatement("SELECT * FROM comments where id = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM comments where id = ? order by created_at desc");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()) {
