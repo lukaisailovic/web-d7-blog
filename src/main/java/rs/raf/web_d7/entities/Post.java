@@ -2,6 +2,8 @@ package rs.raf.web_d7.entities;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
+
 
 public class Post {
 
@@ -18,6 +20,9 @@ public class Post {
     @NotNull(message = "Content is required")
     @NotEmpty(message = "Content is required")
     private String content;
+
+    private Timestamp createdAt;
+
     public Post(){
 
     }
@@ -26,11 +31,12 @@ public class Post {
         this.title = title;
         this.content = content;
     }
-    public Post(Integer id, String author, String title, String content) {
+    public Post(Integer id, String author, String title, String content, Timestamp createdAt) {
         this.id = id;
         this.author = author;
         this.title = title;
         this.content = content;
+        this.createdAt = createdAt;
     }
 
 
@@ -67,5 +73,11 @@ public class Post {
         this.content = content;
     }
 
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
 }

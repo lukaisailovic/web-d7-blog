@@ -11,7 +11,7 @@ import java.util.List;
 public class PostRepository extends MySqlAbstractRepository implements IPostRepository {
 
     private Post getFromResultSet(ResultSet resultSet) throws SQLException {
-        return new Post(resultSet.getInt("id"),resultSet.getString("author"),resultSet.getString("title"), resultSet.getString("content"));
+        return new Post(resultSet.getInt("id"),resultSet.getString("author"),resultSet.getString("title"), resultSet.getString("content"), resultSet.getTimestamp("created_at"));
     }
 
     public Post add(Post obj) {
