@@ -26,6 +26,14 @@ public class Post {
         this.title = title;
         this.content = content;
     }
+    public Post(){
+
+    }
+    public Post(@NotNull(message = "Author is required") @NotEmpty(message = "Author is required") String author, @NotNull(message = "Title is required") @NotEmpty(message = "Title is required") String title, @NotNull(message = "Content is required") @NotEmpty(message = "Content is required") String content) {
+        this.author = author;
+        this.title = title;
+        this.content = content;
+    }
 
     public Integer getId() {
         return id;
